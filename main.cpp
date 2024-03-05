@@ -78,8 +78,8 @@ int main()
     cout << "3. Search data:" << endl;
     cout << "4. Update data:" << endl;
     cout << "5. Delete data:" << endl;
-    cout << "6. Logout:" << endl;
-    cout << "7. Exit:" << endl;
+    cout << "6. Logout" << endl;
+    cout << "7. Exit" << endl;
 
 
 };
