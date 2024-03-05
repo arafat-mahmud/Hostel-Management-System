@@ -71,14 +71,14 @@ int main()
     cout << "===========================================\n"
          << endl;
 
-    hostelManage Hostel;
+    hostelManage adm;
     string username;
     string password;
     cout << "Enter username: ";
     cin >> username;
     cout << "Enter password: ";
     cin >> password;
-    Hostel.admin_login(username, password);
+    adm.admin_login(username, password);
 
     cout << "1. Add data" << endl;
     cout << "2. Show data:" << endl;
