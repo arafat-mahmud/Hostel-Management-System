@@ -7,13 +7,13 @@ class hostelManage
 
 private:
     int st_id;
-    string st_password;
+    // string st_password;
     string st_name;
     string st_email;
 
 public:
     // login 1
-    void st_login(int id, string st_password);
+    void admin_login(string username, string pass);
 
     // Student Add
     void st_add_data(int id, string name, string email)
@@ -53,25 +53,32 @@ public:
 };
 
 // login 2
-void hostelManage::st_login(int id, string password)
+void hostelManage::admin_login(string username, string pass)
 {
-    if (id == st_id && password == st_password)
+    if (username == "admin" && pass == "hostel")
     {
-        cout << "Login successful!" << endl;
-        cout << "Student ID: " << st_id << endl;
-        cout << "Student Name: " << st_name << endl;
-        cout << "Student Email: " << st_email << endl;
+        cout << "\nlogin successful" << endl;
     }
     else
     {
-        cout << "Invalid User" << endl;
+        cout << "login fail" << endl;
     }
 };
 
 int main()
 {
     cout << "Welcome to Student Hostel Management System" << endl;
-    cout << "===========================================\n" << endl;
+    cout << "===========================================\n"
+         << endl;
+
+    hostelManage Hostel;
+    string username;
+    string password;
+    cout << "Enter username: ";
+    cin >> username;
+    cout << "Enter password: ";
+    cin >> password;
+    Hostel.admin_login(username, password);
 
     cout << "1. Add data" << endl;
     cout << "2. Show data:" << endl;
@@ -80,6 +87,4 @@ int main()
     cout << "5. Delete data:" << endl;
     cout << "6. Logout" << endl;
     cout << "7. Exit" << endl;
-
-
 };
