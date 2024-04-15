@@ -263,7 +263,7 @@ int main()
             adm.st_delete_data(id);
             break;
         }
-        // Implement cases for Logout and Exit (6, 7)
+
         }
 
     } while (choice != 6 && choice != 7);
