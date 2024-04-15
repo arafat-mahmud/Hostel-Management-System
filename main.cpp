@@ -169,21 +169,23 @@ private:
         }
         else
         {
-            cout << "Unable to open file for saving student data." << endl;
+            cout << "Anything Mistake" << endl;
         }
     }
 };
 
 // Function to handle admin login
-void admin_login(string username, string pass)
+bool admin_login(string username, string pass)
 {
     if (username == "admin" && pass == "hostel")
     {
-        cout << "\nlogin successful" << endl;
+        cout << "\nLogin successful" << endl;
+        return true;
     }
     else
     {
-        cout << "login fail" << endl;
+        cout << "Login failed" << endl;
+        return false;
     }
 };
 
@@ -193,14 +195,20 @@ int main()
     cout << "===========================================\n"
          << endl;
 
-    hostelManage adm;
     string username;
     string password;
-    cout << "Enter username: ";
-    cin >> username;
-    cout << "Enter password: ";
-    cin >> password;
-    admin_login(username, password);
+    bool loggedIn = false;
+
+    do
+    {
+        cout << "Enter username: ";
+        cin >> username;
+        cout << "Enter password: ";
+        cin >> password;
+        loggedIn = admin_login(username, password);
+    } while (!loggedIn);
+
+    hostelManage adm;
 
     int choice;
     do
