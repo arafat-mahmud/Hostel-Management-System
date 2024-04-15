@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -32,11 +33,16 @@ public:
     // Function to show student data
     void st_show_data()
     {
-        if (st_id != 0)
+        ifstream inFile("students.txt");
+        if (inFile.is_open())
         {
-            cout << "Student ID: " << st_id << endl;
-            cout << "Student Name: " << st_name << endl;
-            cout << "Student Email: " << st_email << endl;
+            while (inFile >> st_id >> st_name >> st_email)
+            {
+                cout << "Student ID: " << st_id << endl;
+                cout << "Student Name: " << st_name << endl;
+                cout << "Student Email: " << st_email << endl;
+            }
+            inFile.close();
         }
         else
         {
@@ -48,18 +54,107 @@ public:
     void st_search_data(int id)
     {
         // Implement search functionality
+        ifstream inFile("students.txt");
+        if (inFile.is_open())
+        {
+            while (inFile >> st_id >> st_name >> st_email)
+            {
+                if (st_id == id)
+                {
+                    cout << "Student ID: " << st_id << endl;
+                    cout << "Student Name: " << st_name << endl;
+                    cout << "Student Email: " << st_email << endl;
+                    return;
+                }
+            }
+            cout << "Student not found." << endl;
+            inFile.close();
+        }
+        else
+        {
+            cout << "No student data available." << endl;
+        }
     };
 
     // Function to update student data
     void st_update_data(int id, string name, string email)
     {
         // Implement update functionality
+        ifstream inFile("students.txt");
+        ofstream outFile("temp.txt");
+        bool found = false;
+        if (inFile.is_open() && outFile.is_open())
+        {
+            while (inFile >> st_id >> st_name >> st_email)
+            {
+                if (st_id == id)
+                {
+                    outFile << id << " " << name << " " << email << endl;
+                    found = true;
+                }
+                else
+                {
+                    outFile << st_id << " " << st_name << " " << st_email << endl;
+                }
+            }
+            inFile.close();
+            outFile.close();
+            remove("students.txt");
+            rename("temp.txt", "students.txt");
+        }
+        else
+        {
+            cout << "Unable to open files." << endl;
+        }
+
+        if (found)
+        {
+            cout << "Student data updated successfully." << endl;
+        }
+        else
+        {
+            cout << "Student not found." << endl;
+        }
     };
 
     // Function to delete student data
     void st_delete_data(int id)
     {
         // Implement delete functionality
+        ifstream inFile("students.txt");
+        ofstream outFile("temp.txt");
+        bool found = false;
+        if (inFile.is_open() && outFile.is_open())
+        {
+            while (inFile >> st_id >> st_name >> st_email)
+            {
+                if (st_id == id)
+                {
+                    found = true;
+                }
+                else
+                {
+                    outFile << st_id << " " << st_name << " " << st_email << endl;
+                }
+            }
+            inFile.close();
+            outFile.close();
+            remove("students.txt");
+            rename("temp.txt", "students.txt");
+        }
+        else
+        {
+            cout << "Unable to open files." << endl;
+        }
+
+        if (found)
+        {
+            cout << "Student data deleted successfully." << endl;
+        }
+        else
+        {
+            cout << "Student not found." << endl;
+        }
     };
 
 private:
@@ -139,10 +234,40 @@ int main()
         case 2:
             adm.st_show_data();
             break;
-        // Implement cases for other options (3, 4, 5, 6, 7)
+        case 3:
+        {
+            int id;
+            cout << "Enter student ID to search: ";
+            cin >> id;
+            adm.st_search_data(id);
+            break;
+        }
+        case 4:
+        {
+            int id;
+            string name, email;
+            cout << "Enter student ID to update: ";
+            cin >> id;
+            cout << "Enter updated student name: ";
+            cin >> name;
+            cout << "Enter updated student email: ";
+            cin >> email;
+            adm.st_update_data(id, name, email);
+            break;
+        }
+        case 5:
+        {
+            int id;
+            cout << "Enter student ID to delete: ";
+            cin >> id;
+            adm.st_delete_data(id);
+            break;
+        }
+        // Implement cases for Logout and Exit (6, 7)
         }
 
-    } while (choice != 7);
+    } while (choice != 6 && choice != 7);
+
 
     return 0;
 }
