@@ -10,7 +10,7 @@ class hostelManage
 private:
     int st_id;
     string st_name;
-    string st_email;
+    string st_room;
 
 public:
     // Constructor
@@ -18,29 +18,30 @@ public:
     {
         st_id = 0;
         st_name = "";
-        st_email = "";
+        st_room = "";
     }
 
     // Function to add student data
-    void st_add_data(int id, string name, string email)
+    void st_add_data(int id, string name, string room_no)
     {
         st_id = id;
         st_name = name;
-        st_email = email;
+        st_room = room_no;
         saveStudentData(); // Save student data to file
     };
 
     // Function to show student data
     void st_show_data()
     {
-        ifstream inFile("students.txt");
+        ifstream inFile("database.txt");
         if (inFile.is_open())
         {
-            while (inFile >> st_id >> st_name >> st_email)
+            cout << "-----------------------------------------\n";
+            cout << "Student ID  |  Student Name  |  Room No |\n-----------------------------------------\n";
+            while (inFile >> st_id >> st_name >> st_room)
             {
-                cout << "Student ID: " << st_id << endl;
-                cout << "Student Name: " << st_name << endl;
-                cout << "Student Email: " << st_email << endl;
+                cout << st_id << "    |    " << st_name << "       |   " << st_room << "    |" << endl;
+                cout << "-----------------------------------------\n";
             }
             inFile.close();
         }
@@ -53,17 +54,17 @@ public:
     // Function to search for student data
     void st_search_data(int id)
     {
-        // Implement search functionality
-        ifstream inFile("students.txt");
+        // search functionality
+        ifstream inFile("database.txt");
         if (inFile.is_open())
         {
-            while (inFile >> st_id >> st_name >> st_email)
+            while (inFile >> st_id >> st_name >> st_room)
             {
                 if (st_id == id)
                 {
                     cout << "Student ID: " << st_id << endl;
                     cout << "Student Name: " << st_name << endl;
-                    cout << "Student Email: " << st_email << endl;
+                    cout << "Student Room: " << st_room << endl;
                     return;
                 }
             }
@@ -77,30 +78,30 @@ public:
     };
 
     // Function to update student data
-    void st_update_data(int id, string name, string email)
+    void st_update_data(int id, string name, string room_no)
     {
-        // Implement update functionality
-        ifstream inFile("students.txt");
+        // update functionality
+        ifstream inFile("database.txt");
         ofstream outFile("temp.txt");
         bool found = false;
         if (inFile.is_open() && outFile.is_open())
         {
-            while (inFile >> st_id >> st_name >> st_email)
+            while (inFile >> st_id >> st_name >> st_room)
             {
                 if (st_id == id)
                 {
-                    outFile << id << " " << name << " " << email << endl;
+                    outFile << id << " " << name << " " << room_no << endl;
                     found = true;
                 }
                 else
                 {
-                    outFile << st_id << " " << st_name << " " << st_email << endl;
+                    outFile << st_id << " " << st_name << " " << st_room << endl;
                 }
             }
             inFile.close();
             outFile.close();
-            remove("students.txt");
-            rename("temp.txt", "students.txt");
+            remove("database.txt");
+            rename("temp.txt", "database.txt");
         }
         else
         {
@@ -120,13 +121,13 @@ public:
     // Function to delete student data
     void st_delete_data(int id)
     {
-        // Implement delete functionality
-        ifstream inFile("students.txt");
+        // delete functionality
+        ifstream inFile("database.txt");
         ofstream outFile("temp.txt");
         bool found = false;
         if (inFile.is_open() && outFile.is_open())
         {
-            while (inFile >> st_id >> st_name >> st_email)
+            while (inFile >> st_id >> st_name >> st_room)
             {
                 if (st_id == id)
                 {
@@ -134,13 +135,13 @@ public:
                 }
                 else
                 {
-                    outFile << st_id << " " << st_name << " " << st_email << endl;
+                    outFile << st_id << " " << st_name << " " << st_room << endl;
                 }
             }
             inFile.close();
             outFile.close();
-            remove("students.txt");
-            rename("temp.txt", "students.txt");
+            remove("database.txt");
+            rename("temp.txt", "database.txt");
         }
         else
         {
@@ -161,10 +162,10 @@ private:
     // Function to save student data to file
     void saveStudentData()
     {
-        ofstream outFile("students.txt", ios::app);
+        ofstream outFile("database.txt", ios::app);
         if (outFile.is_open())
         {
-            outFile << st_id << " " << st_name << " " << st_email << endl;
+            outFile << st_id << " " << st_name << " " << st_room << endl;
             outFile.close();
         }
         else
@@ -177,7 +178,7 @@ private:
 // Function to handle admin login
 bool admin_login(string username, string pass)
 {
-    if (username == "admin" && pass == "hostel")
+    if (username == "a" && pass == "a")
     {
         cout << "\nLogin successful" << endl;
         return true;
@@ -191,7 +192,7 @@ bool admin_login(string username, string pass)
 
 int main()
 {
-    cout << "Welcome to Student Hostel Management System" << endl;
+    cout << "\nWelcome to Student Hostel Management System" << endl;
     cout << "===========================================\n"
          << endl;
 
@@ -213,30 +214,34 @@ int main()
     int choice;
     do
     {
-        cout << "\nChoose an option:" << endl;
+        cout << "\nChoose an option\n" << endl;
         cout << "1. Add data" << endl;
         cout << "2. Show data" << endl;
         cout << "3. Search data" << endl;
         cout << "4. Update data" << endl;
         cout << "5. Delete data" << endl;
         cout << "6. Logout" << endl;
-        cout << "7. Exit" << endl;
+        cout << "7. Exit\n" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
+        cout << "===================\n";
+
 
         switch (choice)
         {
         case 1:
         {
             int id;
-            string name, email;
-            cout << "Enter student ID: ";
+            string name, room_no;
+            cout << "Enqueue new student in this hostel\n";
+            cout << "----------------------------------\n";
+            cout << "\nEnter Student ID: ";
             cin >> id;
-            cout << "Enter student name: ";
+            cout << "Enter Student Name: ";
             cin >> name;
-            cout << "Enter student email: ";
-            cin >> email;
-            adm.st_add_data(id, name, email);
+            cout << "Enter Student Room: ";
+            cin >> room_no;
+            adm.st_add_data(id, name, room_no);
             break;
         }
         case 2:
@@ -253,14 +258,14 @@ int main()
         case 4:
         {
             int id;
-            string name, email;
+            string name, room_no;
             cout << "Enter student ID to update: ";
             cin >> id;
             cout << "Enter updated student name: ";
             cin >> name;
-            cout << "Enter updated student email: ";
-            cin >> email;
-            adm.st_update_data(id, name, email);
+            cout << "Enter updated student room_no: ";
+            cin >> room_no;
+            adm.st_update_data(id, name, room_no);
             break;
         }
         case 5:
