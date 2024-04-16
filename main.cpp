@@ -214,7 +214,7 @@ int main()
     int choice;
     do
     {
-        cout << "\nChoose an option\n" << endl;
+        cout << "\nChoose any option-\n" << endl;
         cout << "1. Add data" << endl;
         cout << "2. Show data" << endl;
         cout << "3. Search data" << endl;
@@ -222,9 +222,9 @@ int main()
         cout << "5. Delete data" << endl;
         cout << "6. Logout" << endl;
         cout << "7. Exit\n" << endl;
-        cout << "Enter your choice: ";
+        cout << "Enter the number: ";
         cin >> choice;
-        cout << "===================\n";
+        cout << "====================\n";
 
 
         switch (choice)
