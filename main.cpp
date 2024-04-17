@@ -1,12 +1,10 @@
 #include <iostream>
 #include <fstream>
-#include <sstream>
 
 using namespace std;
 
 class hostelManage
 {
-
 private:
     int st_id;
     string st_name;
@@ -51,10 +49,9 @@ public:
         }
     };
 
-    // Function to search for student data
+    // Search for student data
     void st_search_data(int id)
     {
-        // search functionality
         ifstream inFile("database.txt");
         if (inFile.is_open())
         {
@@ -77,10 +74,9 @@ public:
         }
     };
 
-    // Function to update student data
+    // Update student data
     void st_update_data(int id, string name, string room_no)
     {
-        // update functionality
         ifstream inFile("database.txt");
         ofstream outFile("temp.txt");
         bool found = false;
@@ -118,10 +114,9 @@ public:
         }
     };
 
-    // Function to delete student data
+    // Delete student data
     void st_delete_data(int id)
     {
-        // delete functionality
         ifstream inFile("database.txt");
         ofstream outFile("temp.txt");
         bool found = false;
@@ -159,7 +154,7 @@ public:
     };
 
 private:
-    // Function to save student data to file
+    // Save student data to file
     void saveStudentData()
     {
         ofstream outFile("database.txt", ios::app);
@@ -175,7 +170,7 @@ private:
     }
 };
 
-// Function to handle admin login
+// Admin login
 bool admin_login(string username, string pass)
 {
     if (username == "a" && pass == "a")
@@ -282,5 +277,4 @@ int main()
     } while (choice != 6 && choice != 7);
 
 
-    return 0;
 }
