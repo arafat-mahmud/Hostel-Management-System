@@ -28,7 +28,7 @@ public:
         saveStudentData(); // Save student data to file
     };
 
-    // Function to show student data
+    // Show student data
     void st_show_data()
     {
         ifstream inFile("database.txt");
@@ -145,7 +145,7 @@ public:
 
         if (found)
         {
-            cout << "Student data deleted successfully." << endl;
+            cout << "Deleted successfully." << endl;
         }
         else
         {
@@ -173,14 +173,14 @@ private:
 // Admin login
 bool admin_login(string username, string pass)
 {
-    if (username == "a" && pass == "a")
+    if (username == "admin" && pass == "1234")
     {
         cout << "\nLogin successful" << endl;
         return true;
     }
     else
     {
-        cout << "Login failed" << endl;
+        cout << "\nLogin failed!\n" << endl;
         return false;
     }
 };
@@ -275,6 +275,5 @@ int main()
         }
 
     } while (choice != 6 && choice != 7);
-
 
 }
